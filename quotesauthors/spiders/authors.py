@@ -21,6 +21,10 @@ class AuthorsSpider(scrapy.Spider):
             page = scrapy.Request(url=self.start_urls[0] + link, callback=self.parse_page)
             yield page
 
+        next_page = response.xpath("/html//li[@class='next']/a/@href").get()
+        if next_page is not None:
+            yield response.follow(next_page, callback=self.parse)
+
     def parse_page(self, response):
         details_for_authors = response.xpath("//div[@class='author-details']")
         for info in details_for_authors:
