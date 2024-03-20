@@ -36,4 +36,4 @@ class AuthorsSpider(scrapy.Spider):
             description = info.xpath(".//div[@class='author-description']/text()").get().strip()
             authors['description'] = description.replace('\n', ' ').strip()
 
-            yield authors  # Важливо використовувати yield тут
+            yield authors
